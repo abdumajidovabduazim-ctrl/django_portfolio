@@ -1,10 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'base.html' %}
+{% block title %}Men haqimda{% endblock %}
+
+{% block content %}
+<section class="max-w-4xl mx-auto px-4 py-16">
+    <h1 class="text-4xl font-bold mb-12 text-center">Men <span class="text-indigo-400">haqimda</span></h1>
+
+    <div class="flex flex-col md:flex-row gap-12 items-center mb-16">
+        {% if about.photo %}
+        <img src="{{ about.photo.url }}" alt="{{ about.full_name }}"
+             class="w-48 h-48 rounded-full object-cover border-4 border-indigo-500">
+        {% endif %}
+        <div>
+            <h2 class="text-2xl font-bold mb-2">{{ about.full_name }}</h2>
+            <p class="text-indigo-400 mb-4">{{ about.title }}</p>
+            <p class="text-gray-400 leading-relaxed">{{ about.bio }}</p>
+
+            <div class="flex gap-4 mt-6">
+                {% if about.github %}
+                <a href="{{ about.github }}" target="_blank"
+                   class="bg-gray-800 px-4 py-2 rounded-lg hover:bg-gray-700 transition">GitHub</a>
+                {% endif %}
+                {% if about.linkedin %}
+                <a href="{{ about.linkedin }}" target="_blank"
+                   class="bg-blue-700 px-4 py-2 rounded-lg hover:bg-blue-600 transition">LinkedIn</a>
+                {% endif %}
+                {% if about.cv %}
+                <a href="{{ about.cv.url }}" download
+                   class="bg-indigo-600 px-4 py-2 rounded-lg hover:bg-indigo-700 transition">CV yuklash</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Skills -->
+    <h2 class="text-2xl font-bold mb-8 text-center">Ko'nikmalar</h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {% for skill in skills %}
+        <div class="bg-gray-900 rounded-xl p-4 text-center">
+            <i class="{{ skill.icon }} text-4xl mb-2"></i>
+            <p class="font-semibold">{{ skill.name }}</p>
+            <p class="text-indigo-400 text-sm">{{ skill.get_level_display }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

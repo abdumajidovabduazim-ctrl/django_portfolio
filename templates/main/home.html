@@ -1,10 +1,99 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}Bosh sahifa{% endblock %}
+
+{% block content %}
+
+<!-- HERO -->
+<section class="max-w-6xl mx-auto px-4 py-24 flex flex-col items-center text-center">
+    {% if about.photo %}
+    <img src="{{ about.photo.url }}" alt="{{ about.full_name }}"
+         class="w-32 h-32 rounded-full object-cover border-4 border-indigo-500 mb-6">
+    {% endif %}
+
+    <h1 class="text-5xl font-bold mb-4">
+        Salom, men <span class="text-indigo-400">{{ about.full_name }}</span>
+    </h1>
+    <p class="text-xl text-gray-400 mb-8">{{ about.title }}</p>
+    <p class="text-gray-400 max-w-2xl mb-8">{{ about.bio }}</p>
+
+    <div class="flex gap-4">
+        <a href="{% url 'project_list' %}"
+           class="bg-indigo-600 hover:bg-indigo-700 px-6 py-3 rounded-lg font-semibold transition">
+            Loyihalarni ko'rish
+        </a>
+        <a href="{% url 'contact' %}"
+           class="border border-indigo-500 hover:bg-indigo-500/10 px-6 py-3 rounded-lg font-semibold transition">
+            Bog'lanish
+        </a>
+    </div>
+</section>
+
+<!-- SKILLS -->
+<section class="bg-gray-900 py-16">
+    <div class="max-w-6xl mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12">Ko'nikmalar</h2>
+        <div class="flex flex-wrap justify-center gap-6">
+            {% for skill in skills %}
+            <div class="bg-gray-800 rounded-xl p-4 text-center w-28 hover:border border-indigo-500 transition">
+                <i class="{{ skill.icon }} text-4xl mb-2"></i>
+                <p class="text-sm text-gray-300">{{ skill.name }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="max-w-6xl mx-auto px-4 py-16">
+    <h2 class="text-3xl font-bold text-center mb-12">Loyihalar</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {% for project in projects %}
+        <div class="bg-gray-900 rounded-xl overflow-hidden hover:border border-indigo-500 transition">
+            {% if project.image %}
+            <img src="{{ project.image.url }}" alt="{{ project.title }}" class="w-full h-48 object-cover">
+            {% endif %}
+            <div class="p-6">
+                <h3 class="text-xl font-bold mb-2">{{ project.title }}</h3>
+                <p class="text-gray-400 text-sm mb-4">{{ project.short_description }}</p>
+                <p class="text-indigo-400 text-xs mb-4">{{ project.technologies }}</p>
+                <div class="flex gap-3">
+                    {% if project.github_url %}
+                    <a href="{{ project.github_url }}" target="_blank"
+                       class="text-sm bg-gray-800 px-3 py-1 rounded hover:bg-gray-700 transition">GitHub</a>
+                    {% endif %}
+                    {% if project.live_url %}
+                    <a href="{{ project.live_url }}" target="_blank"
+                       class="text-sm bg-indigo-600 px-3 py-1 rounded hover:bg-indigo-700 transition">Demo</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="text-center mt-8">
+        <a href="{% url 'project_list' %}" class="text-indigo-400 hover:underline">
+            Barcha loyihalar →
+        </a>
+    </div>
+</section>
+
+<!-- BLOG -->
+<section class="bg-gray-900 py-16">
+    <div class="max-w-6xl mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12">So'nggi postlar</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {% for post in posts %}
+            <a href="{% url 'post_detail' post.slug %}"
+               class="bg-gray-800 rounded-xl p-6 hover:border border-indigo-500 transition block">
+                <p class="text-indigo-400 text-xs mb-2">{{ post.category }}</p>
+                <h3 class="text-lg font-bold mb-2">{{ post.title }}</h3>
+                <p class="text-gray-400 text-sm">{{ post.excerpt|truncatewords:15 }}</p>
+                <p class="text-gray-500 text-xs mt-4">{{ post.created_at|date:"d.m.Y" }}</p>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}

@@ -1,10 +1,102 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'base.html' %}
+{% block title %}Kontakt{% endblock %}
+
+{% block content %}
+<section class="max-w-4xl mx-auto px-4 py-16">
+    <h1 class="text-4xl font-bold mb-4 text-center">Bog'<span class="text-indigo-400">lanish</span></h1>
+    <p class="text-gray-400 text-center mb-12">Savol yoki taklifingiz bo'lsa, xabar qoldiring!</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+
+        <!-- Kontakt ma'lumotlari -->
+        <div class="flex flex-col gap-6">
+            <h2 class="text-2xl font-bold mb-4">Kontakt <span class="text-indigo-400">ma'lumotlar</span></h2>
+
+            {% if about.phone %}
+            <div class="flex items-center gap-4 bg-gray-900 rounded-xl p-4">
+                <span class="text-2xl">📞</span>
+                <div>
+                    <p class="text-gray-500 text-sm">Telefon</p>
+                    <a href="tel:{{ about.phone }}" class="text-white hover:text-indigo-400 transition">
+                        {{ about.phone }}
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+
+            {% if about.email %}
+            <div class="flex items-center gap-4 bg-gray-900 rounded-xl p-4">
+                <span class="text-2xl">✉️</span>
+                <div>
+                    <p class="text-gray-500 text-sm">Email</p>
+                    <a href="mailto:{{ about.email }}" class="text-white hover:text-indigo-400 transition">
+                        {{ about.email }}
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+
+            {% if about.telegram %}
+            <div class="flex items-center gap-4 bg-gray-900 rounded-xl p-4">
+                <span class="text-2xl">✈️</span>
+                <div>
+                    <p class="text-gray-500 text-sm">Telegram</p>
+                    <a href="{{ about.telegram }}" target="_blank" class="text-white hover:text-indigo-400 transition">
+                        Telegram'da yozing
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+
+            {% if about.github %}
+            <div class="flex items-center gap-4 bg-gray-900 rounded-xl p-4">
+                <span class="text-2xl">💻</span>
+                <div>
+                    <p class="text-gray-500 text-sm">GitHub</p>
+                    <a href="{{ about.github }}" target="_blank" class="text-white hover:text-indigo-400 transition">
+                        GitHub profilim
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+
+            {% if about.linkedin %}
+            <div class="flex items-center gap-4 bg-gray-900 rounded-xl p-4">
+                <span class="text-2xl">💼</span>
+                <div>
+                    <p class="text-gray-500 text-sm">LinkedIn</p>
+                    <a href="{{ about.linkedin }}" target="_blank" class="text-white hover:text-indigo-400 transition">
+                        LinkedIn profilim
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Forma -->
+        <div>
+            <h2 class="text-2xl font-bold mb-8">Xabar <span class="text-indigo-400">qoldiring</span></h2>
+            <form method="POST" class="bg-gray-900 rounded-2xl p-8 flex flex-col gap-6">
+                {% csrf_token %}
+                <div>
+                    <label class="text-gray-400 text-sm mb-2 block">Ismingiz</label>
+                    {{ form.name }}
+                </div>
+                <div>
+                    <label class="text-gray-400 text-sm mb-2 block">Email</label>
+                    {{ form.email }}
+                </div>
+                <div>
+                    <label class="text-gray-400 text-sm mb-2 block">Xabar</label>
+                    {{ form.message }}
+                </div>
+                <button type="submit"
+                        class="bg-indigo-600 hover:bg-indigo-700 py-3 rounded-lg font-semibold transition">
+                    Yuborish
+                </button>
+            </form>
+        </div>
+
+    </div>
+</section>
+{% endblock %}

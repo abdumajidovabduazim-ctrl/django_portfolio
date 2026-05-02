@@ -1,10 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uz">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Portfolio{% endblock %}</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Devicons (skill ikonalari uchun) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
 </head>
-<body>
-$END$
+<body class="bg-gray-950 text-white">
+
+    <!-- NAVBAR -->
+    <nav class="bg-gray-900 border-b border-gray-800 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="{% url 'home' %}" class="text-xl font-bold text-indigo-400">
+                &lt;Portfolio /&gt;
+            </a>
+            <div class="flex gap-6 text-gray-300">
+                <a href="{% url 'home' %}" class="hover:text-indigo-400 transition">Bosh sahifa</a>
+                <a href="{% url 'about' %}" class="hover:text-indigo-400 transition">Men haqimda</a>
+                <a href="{% url 'project_list' %}" class="hover:text-indigo-400 transition">Loyihalar</a>
+                <a href="{% url 'post_list' %}" class="hover:text-indigo-400 transition">Blog</a>
+                <a href="{% url 'contact' %}" class="hover:text-indigo-400 transition">Kontakt</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CONTENT -->
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-900 border-t border-gray-800 text-center py-6 text-gray-500 mt-20">
+        <p>© 2024 Portfolio. Barcha huquqlar himoyalangan.</p>
+    </footer>
+
 </body>
 </html>
